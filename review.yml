@@ -1,0 +1,494 @@
+aid: bupa-australia
+name: Bupa Australia
+review:
+  question: Does Bupa Australia expose a real, self-serve public API surface for developers?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Australia
+  tier: carrier-life-health
+  legalEntity: Bupa HI Pty Ltd ABN 81 000 057 590
+findings:
+  summary: |
+    Bupa Australia is a private health insurance carrier that also owns the
+    provision it funds — Bupa Dental, Bupa Optical, Bupa Medical Visa Services
+    and Bupa Aged Care. It publishes a genuine first-party developer portal at
+    https://portal.api.bupa.com.au/ (HTTP 200), an Azure API Management managed
+    portal whose meta author tag reads "Bupa HI Pty Ltd ABN 81 000 057 590", so
+    the portal belongs to the Australian market unit rather than to the UK
+    group. The portal is nonetheless not self-serve. Its /apis and /products
+    routes both return HTTP 200 and render bare "APIs: List" and "Products:
+    List" headings with no catalog for anonymous visitors; its /config.json
+    (HTTP 200) points the portal at
+    https://management.api.internal.bupa.com.au/... (service banzprodapim01),
+    a host that does not resolve publicly; and its Get Started page reads, in
+    full: "1. Sign Up — Contact the Bupa Integration Fabric Team with your
+    interest to get access to our API specifications. 2. Explore Bupa APIs —
+    Browse our API Products to find the capabilities you need and learn how to
+    interact. 3. Request for Integration — Contact the Bupa Integration Fabric
+    Team for Integration Guides and Environments for selected Products and
+    APIs." Every path to a specification runs through a human team. Zero
+    OpenAPI or Swagger documents could be retrieved, so no openapi/ directory
+    is included in this repository.
+
+    The more interesting finding is what Bupa Australia's counterparties
+    actually integrate with, because it is not an API. Ancillary providers
+    claim through HICAPS and HealthPoint point-of-sale terminals — the
+    /for-providers page states Bupa "has engaged HICAPS and HealthPoint to
+    activate their adjusted charge processing feature". Hospital providers
+    check patient eligibility and lodge claims through ECLIPSE, the national
+    Services Australia claiming channel, reached from Bupa's own hospital page
+    via https://eclipse.civica.com.au/ECFWeb/login, with registration by PDF
+    form. Access to the Bupa Partner Portal at https://partner.bupa.com.au/ is
+    likewise requested by downloading and returning a PDF access form. A
+    terminal network, a national claiming utility and a paper form are the
+    integration surface.
+
+    This is the honest posture for an Australian health carrier. Australia has
+    the legal machinery for open insurance and no live obligation: the Consumer
+    Data Right that opened banking and energy was designated to extend to
+    general insurance and then deferred, and private health insurance is a
+    separate regulated market again. A first-hand query of the CDR participant
+    register confirms it — https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+    returned HTTP 200 with 203 data-holder brands, all banking or energy, no
+    insurance sector and no Bupa brand.
+  developerPortal:
+    url: https://portal.api.bupa.com.au/
+    httpStatus: 200
+    fetched: '2026-07-25'
+    platform: Azure API Management managed developer portal
+    classification: partner-gated developer portal
+    selfServe: false
+    firstParty: true
+    owner: Bupa HI Pty Ltd ABN 81 000 057 590 (per portal meta author tag)
+    title: Home - Bupa Developer Portal
+    metaDescription: Discover APIs, learn how to use them, try them out interactively, and sign up to acquire keys.
+    navigation:
+    - Home
+    - Get Started
+    - Sign-In / Register
+    emptyCatalogEvidence: |
+      https://portal.api.bupa.com.au/apis returns HTTP 200 with title "APIs:
+      List - Bupa Developer Portal" and renders the single word "APIs" with no
+      list. https://portal.api.bupa.com.au/products returns HTTP 200 with title
+      "Products: List - Bupa Developer Portal" and renders "Products" with no
+      list. Neither page exposes an API, a product, an operation or a base URL
+      to an anonymous visitor.
+    configEvidence: |
+      https://portal.api.bupa.com.au/config.json (HTTP 200) returns
+      {"managementApiUrl":"https://management.api.internal.bupa.com.au/subscriptions/000/resourceGroups/000/providers/Microsoft.ApiManagement/service/banzprodapim01","managementApiVersion":"2022-04-01-preview","supportAdminPath":true,...}.
+      management.api.internal.bupa.com.au returns NXDOMAIN publicly, and the
+      default APIM hosts derived from the service name (banzprodapim01.azure-api.net,
+      banzprodapim01.developer.azure-api.net) also return NXDOMAIN, so the
+      catalog cannot be read anonymously by any route.
+    getStartedVerbatim: |
+      1. Sign Up — Contact the Bupa Integration Fabric Team with your interest
+      to get access to our API specifications.
+      2. Explore Bupa APIs — Browse our API Products to find the capabilities
+      you need and learn how to interact.
+      3. Request for Integration — Contact the Bupa Integration Fabric Team for
+      Integration Guides and Environments for selected Products and APIs.
+  otherGatedSurfaces:
+  - name: Bupa Partner Portal
+    url: https://partner.bupa.com.au/
+    httpStatus: 200
+    redirects: 302 to /en-US/Account/Login/ExternalLogin
+    platform: Microsoft Dynamics 365 Power Pages fronted by Azure AD B2C
+    classification: login wall
+    note: |
+      Every anonymous request redirects to Azure AD B2C at
+      https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/B2C_1A_PROD_01_SIGNUP_SIGNIN/v2.0/.
+      Response headers carry x-ms-portal-app and Dynamics365PortalAnalytics,
+      identifying it as a Dynamics 365 portal. Access is requested by
+      downloading "Bupa Partner Portal Access Form.pdf" (HTTP 200,
+      application/pdf) from the hospital providers page — a PDF form, not an
+      API key.
+  - name: ECLIPSE (Services Australia) via Civica ECF
+    url: https://eclipse.civica.com.au/ECFWeb/login
+    httpStatus: 200
+    classification: national claiming utility, third-party operated
+    note: |
+      Linked from https://www.bupa.com.au/for-providers/hospital as the channel
+      for hospital patient eligibility checking ("Confirming patient hospital
+      eligibility for benefits prior to admission is done via ECLIPSE") and
+      hospital claiming. Registration is by PDF form (Eclipse_access_form.pdf,
+      HTTP 200, application/pdf). This is Services Australia infrastructure
+      surfaced through Civica's Electronic Claim Form web client, not a Bupa
+      API.
+  - name: HICAPS and HealthPoint terminals
+    classification: point-of-sale claiming network
+    note: |
+      https://www.bupa.com.au/for-providers (HTTP 200) states Bupa "has engaged
+      HICAPS and HealthPoint to activate their adjusted charge processing
+      feature ... which simplifies the payment process, ensures price certainty
+      for patients, and reduces administrative burden". Ancillary claiming is
+      terminal-based. No Bupa-published API fronts it.
+  - name: myBupa member portal
+    url: https://my.bupa.com.au/
+    httpStatus: 200
+    classification: member login wall
+    note: Redirects to /login. Member self-service, not a developer surface.
+  probes:
+  - url: https://developer.bupa.com.au
+    result: NXDOMAIN
+  - url: https://developers.bupa.com.au
+    result: NXDOMAIN
+  - url: https://docs.bupa.com.au
+    result: NXDOMAIN
+  - url: https://apis.bupa.com.au
+    result: NXDOMAIN
+  - url: https://sandbox.bupa.com.au
+    result: NXDOMAIN
+  - url: https://partners.bupa.com.au
+    result: NXDOMAIN
+  - url: https://broker.bupa.com.au
+    result: NXDOMAIN
+  - url: https://brokers.bupa.com.au
+    result: NXDOMAIN
+  - url: https://adviser.bupa.com.au
+    result: NXDOMAIN
+  - url: https://api.bupa.com.au/
+    httpStatus: 502
+    note: |
+      Resolves behind Imperva (wizqc6v.impervadns.net) but the gateway returns
+      502 to every anonymous caller. /openapi.json, /openapi.yaml,
+      /swagger.json, /swagger/v1/swagger.json, /v1/openapi.json, /api-docs,
+      /spec, /redoc, /graphql, /health, /.well-known/openid-configuration and
+      /.well-known/oauth-authorization-server all returned 502 on 2026-07-25.
+  - url: https://portal.api.bupa.com.au/
+    httpStatus: 200
+  - url: https://portal.api.bupa.com.au/get-started
+    httpStatus: 200
+  - url: https://portal.api.bupa.com.au/apis
+    httpStatus: 200
+    note: Empty catalog for anonymous visitors.
+  - url: https://portal.api.bupa.com.au/products
+    httpStatus: 200
+    note: Empty catalog for anonymous visitors.
+  - url: https://portal.api.bupa.com.au/api-details
+    httpStatus: 200
+  - url: https://portal.api.bupa.com.au/config.json
+    httpStatus: 200
+  - url: https://portal.api.bupa.com.au/signin
+    httpStatus: 200
+  - url: https://portal.api.bupa.com.au/openapi.json
+    httpStatus: 404
+  - url: https://portal.api.bupa.com.au/swagger.json
+    httpStatus: 404
+  - url: https://portal.api.bupa.com.au/.well-known/openid-configuration
+    httpStatus: 404
+  - url: https://portal.api.bupa.com.au/.well-known/oauth-authorization-server
+    httpStatus: 404
+  - url: https://www.bupa.com.au/
+    httpStatus: 200
+  - url: https://www.bupa.com.au/developers
+    httpStatus: 404
+  - url: https://www.bupa.com.au/developer
+    httpStatus: 404
+  - url: https://www.bupa.com.au/api
+    httpStatus: 404
+  - url: https://www.bupa.com.au/apis
+    httpStatus: 404
+  - url: https://www.bupa.com.au/partners
+    httpStatus: 404
+  - url: https://www.bupa.com.au/partner
+    httpStatus: 404
+  - url: https://www.bupa.com.au/integrations
+    httpStatus: 404
+  - url: https://www.bupa.com.au/developer-portal
+    httpStatus: 404
+  - url: https://www.bupa.com.au/for-providers
+    httpStatus: 200
+  - url: https://www.bupa.com.au/for-providers/hospital
+    httpStatus: 200
+  - url: https://www.bupa.com.au/for-providers/medical
+    httpStatus: 200
+  - url: https://www.bupa.com.au/sitemap.xml
+    httpStatus: 200
+    note: |
+      Sitemap index of three child sitemaps (bca, bupamvs, medical) totalling
+      810 URLs. Not one URL matches api, developer, sdk or integration; the
+      only partner-ish matches are marketing pages (/health-insurance/dental-partners,
+      /campaigns/optical/optical-partners). Confirms there is no public API
+      documentation anywhere on the marketing estate.
+  - url: https://provider.bupa.com.au/
+    httpStatus: 403
+    note: CloudFront 403 "The request could not be satisfied" to anonymous clients.
+  - url: https://partner.bupa.com.au/
+    httpStatus: 200
+    note: 302 to Azure AD B2C sign-in.
+  - url: https://my.bupa.com.au/
+    httpStatus: 200
+    note: Redirects to member login.
+  - url: https://api.github.com/orgs/bupa
+    httpStatus: 404
+  - url: https://api.github.com/orgs/bupa-australia
+    httpStatus: 404
+  - url: https://api.github.com/orgs/bupaanz
+    httpStatus: 404
+  - url: https://api.github.com/orgs/bupa-anz
+    httpStatus: 404
+  - url: https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+    httpStatus: 200
+    note: |
+      Australian Consumer Data Right participant register. 203 data-holder
+      brands returned, all banking or energy. No insurance sector, no Bupa
+      brand. Direct evidence that the CDR seam stops before insurance.
+  acordPosture: no ACORD reference found
+  acordNote: |
+    No mention of ACORD, AL3, ACORD XML, NGDS, ACORD certification or ACORD
+    APIs appears on www.bupa.com.au or on any page of portal.api.bupa.com.au
+    (home, get-started, apis, products all fetched and grepped on 2026-07-25).
+    This is consistent with the line of business and the market. Bupa Australia
+    writes private health insurance and runs healthcare provision, not property
+    and casualty or life, and Australia has no IVANS-style agency-download
+    plumbing. The standards that actually carry Bupa Australia's transactions
+    are the domestic health-claiming ones — ECLIPSE through Services Australia
+    for hospital eligibility and claims, and the HICAPS and HealthPoint
+    terminal networks for ancillary claiming — none of which is ACORD and none
+    of which Bupa publishes itself.
+  insuranceVerbs:
+    quote:
+      publiclyExposed: false
+      note: |
+        Quoting happens on the consumer web funnel at www.bupa.com.au and in
+        the login-gated corporate and partner channels. No quote or rating API
+        is documented.
+    bind:
+      publiclyExposed: false
+    issue:
+      publiclyExposed: false
+      note: Policy issue is web and call-centre; no policy administration API is published.
+    fnol:
+      publiclyExposed: false
+      note: |
+        The closest analogue in private health insurance is claim lodgement and
+        prior eligibility checking. Both exist and neither is a Bupa API:
+        hospital claiming and eligibility run over ECLIPSE via Civica ECF,
+        ancillary claiming runs over HICAPS and HealthPoint terminals, members
+        claim through the myBupa app and portal, and several claim paths are
+        still PDF forms (National Private Patient Claim form).
+    audience: |
+      partner-only. No consumer-facing or agent-facing self-serve API is
+      published. The developer portal exists but releases specifications only
+      after contact with the Bupa Integration Fabric Team.
+  authModel:
+    confirmed:
+    - scheme: OAuth2 authorization code via Azure AD B2C
+      host: partnerlogin.bupa.com.au
+      evidence: |
+        https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/B2C_1A_PROD_01_SIGNUP_SIGNIN/v2.0/.well-known/openid-configuration
+        returned HTTP 200 anonymously on 2026-07-25 with issuer
+        https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/v2.0/,
+        authorization and token endpoints under
+        /b2c_1a_prod_01_signup_signin/oauth2/v2.0/, scopes_supported ["openid"],
+        subject_types_supported ["pairwise"], RS256 id tokens.
+      guards: The Bupa Partner Portal (partner.bupa.com.au), not a documented API.
+    - scheme: OAuth2 authorization code via Microsoft Entra ID
+      tenant: fee9c112-179f-46e3-ab98-f8d58602cf19
+      evidence: |
+        The developer portal sign-in page ships a signin-aad widget with
+        tenants ["fee9c112-179f-46e3-ab98-f8d58602cf19"] alongside a
+        signin-aad-b2c widget labelled "Sign-in / Register". The tenant's
+        https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/v2.0/.well-known/openid-configuration
+        returned HTTP 200 with tenant_region_scope "OC" (Oceania), confirming
+        an Australian tenant.
+      guards: Sign-in to portal.api.bupa.com.au itself — one AAD path for Bupa staff, one B2C path for external registrants.
+    implied:
+    - scheme: Azure API Management subscription keys
+      evidence: |
+        portal.api.bupa.com.au is an Azure APIM managed portal and its home
+        page copy reads "Start with simple registration and get the keys to
+        manage, build and test." Subscription keys are the APIM default.
+      note: Inferred from the platform, not from any published API reference. No key header name, scope or base URL is documented publicly.
+    firstPartyWellKnown:
+    - url: https://api.bupa.com.au/.well-known/openid-configuration
+      httpStatus: 502
+    - url: https://api.bupa.com.au/.well-known/oauth-authorization-server
+      httpStatus: 502
+    - url: https://portal.api.bupa.com.au/.well-known/openid-configuration
+      httpStatus: 404
+  transports:
+  - protocol: REST
+    scheme: https
+    documented: false
+    note: |
+      REST is the evident style behind the Azure API Management estate branded
+      internally as the "Integration Fabric", but no endpoint, path, operation
+      or base URL is published to unauthenticated developers. The custom
+      gateway host api.bupa.com.au returns 502 to anonymous callers.
+  - protocol: GraphQL
+    documented: false
+    note: No /graphql surface responds on any Bupa Australia host probed; api.bupa.com.au/graphql returns 502.
+  - protocol: gRPC
+    documented: false
+    note: No published .proto files.
+  - protocol: WebSocket
+    documented: false
+  - protocol: SSE
+    documented: false
+  - protocol: Terminal / POS claiming
+    documented: false
+    note: HICAPS and HealthPoint terminal networks carry ancillary claims. Third-party operated; Bupa publishes no specification.
+  - protocol: ECLIPSE (Services Australia)
+    documented: false
+    note: |
+      Hospital eligibility checking and claiming run over the national ECLIPSE
+      channel, reached through Civica's ECF web client at
+      https://eclipse.civica.com.au/ECFWeb/login. Bupa links to it and
+      registers providers for it by PDF form but does not publish or own the
+      interface.
+  openapi:
+    harvested: false
+    specsCount: 0
+    note: |
+      No OpenAPI or Swagger document could be retrieved. Candidate paths were
+      probed against portal.api.bupa.com.au (/openapi.json and /swagger.json
+      both 404) and api.bupa.com.au (/openapi.json, /openapi.yaml,
+      /swagger.json, /swagger/v1/swagger.json, /v1/openapi.json, /api-docs,
+      /spec, /redoc all 502). The Azure APIM managed portal serves
+      specifications only to signed-in subscribers, and Bupa additionally
+      requires contacting the Integration Fabric Team before specifications are
+      released at all. The openapi/ directory is therefore omitted from this
+      repository rather than populated with anything fabricated.
+  postman:
+    found: false
+    note: |
+      https://www.postman.com/bupa returns HTTP 200 but serves the generic
+      Postman single-page shell with no workspace content. No public Postman
+      workspace or collection published by Bupa Australia was confirmed.
+  webhooks:
+    found: false
+    note: |
+      No event catalog, AsyncAPI document or webhook reference is published
+      anywhere on the developer portal or the marketing estate. Absence is the
+      finding.
+  sourceCode:
+    found: false
+    note: No public GitHub organization under bupa, bupa-australia, bupaanz or bupa-anz (all HTTP 404 from api.github.com).
+  marketSeam: |
+    Australia has the legal machinery for open insurance and no live
+    obligation. APRA supervises prudentially; the Consumer Data Right that
+    already opened banking and energy was designated to extend to general
+    insurance and then deferred and de-prioritized, so the CDR seam that made
+    Australian banking legible stops before insurance. Private health insurance
+    is a separate regulated market again — Bupa, Medibank, nib and HCF — with
+    its own data flows through Services Australia and the terminal networks
+    rather than through consumer-directed APIs. The CDR register query recorded
+    above is the direct proof: 203 data-holder brands, banking and energy only.
+  verdict: |
+    built-stub. Bupa Australia is a large, real carrier with a real internal
+    API programme — an Azure API Management estate in australiasoutheast
+    branded the "Integration Fabric", a first-party developer portal carrying
+    its own ABN, two Azure identity paths for sign-in — but none of it is a
+    public, self-serve developer surface. The portal is live and empty; the
+    catalog is behind an internal management host; the onboarding is "contact
+    the team"; and the actual machine-to-machine plumbing that moves Bupa
+    Australia's money is a national claiming utility and a point-of-sale
+    terminal network that Bupa neither owns nor documents. For the sector data
+    set this records cleanly as: real first-party portal, zero public APIs,
+    zero specs, partner-gated, no ACORD, no CDR obligation.
+sources:
+- url: https://portal.api.bupa.com.au/
+  type: DeveloperPortal
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: |
+    Azure APIM managed portal. Title "Home - Bupa Developer Portal". Copy:
+    "Innovation made simple ... Start with simple registration and get the keys
+    to manage, build and test." Nav is Home / Get Started / Sign-In / Register
+    only.
+- url: https://portal.api.bupa.com.au/get-started
+  type: Documentation
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: |
+    Three-step onboarding, steps 1 and 3 of which route through the Bupa
+    Integration Fabric Team. The single strongest piece of evidence that the
+    portal is not self-serve. Meta author "Bupa HI Pty Ltd ABN 81 000 057 590"
+    confirms first-party ownership by the Australian entity.
+- url: https://portal.api.bupa.com.au/apis
+  type: APIReference
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: 'Title "APIs: List - Bupa Developer Portal"; renders no APIs to anonymous visitors.'
+- url: https://portal.api.bupa.com.au/products
+  type: APIReference
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: 'Title "Products: List - Bupa Developer Portal"; renders no products to anonymous visitors.'
+- url: https://portal.api.bupa.com.au/config.json
+  type: Configuration
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Points the portal at internal-only APIM service banzprodapim01; confirms the catalog is not anonymously readable.
+- url: https://portal.api.bupa.com.au/signin
+  type: SignUp
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Ships signin-aad (tenant fee9c112-179f-46e3-ab98-f8d58602cf19) and signin-aad-b2c widgets.
+- url: https://partner.bupa.com.au/
+  type: PartnerPortal
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Dynamics 365 Power Pages portal; 302 to Azure AD B2C at partnerlogin.bupa.com.au.
+- url: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/B2C_1A_PROD_01_SIGNUP_SIGNIN/v2.0/.well-known/openid-configuration
+  type: Authentication
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Azure AD B2C OIDC discovery document, readable anonymously. Guards the partner portal, not an API.
+- url: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/v2.0/.well-known/openid-configuration
+  type: Authentication
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Entra ID tenant behind the developer portal's AAD sign-in; tenant_region_scope OC.
+- url: https://www.bupa.com.au/for-providers
+  type: ProviderPortal
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: |
+    "Access the Bupa Partner Portal or view information and resources tailored
+    to Ancillary, Medical, and Hospital providers." Names HICAPS and
+    HealthPoint as the ancillary claiming rails.
+- url: https://www.bupa.com.au/for-providers/hospital
+  type: ProviderPortal
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: |
+    "Confirming patient hospital eligibility for benefits prior to admission is
+    done via ECLIPSE." Links to https://eclipse.civica.com.au/ECFWeb/login and
+    to Eclipse_access_form.pdf and Bupa Partner Portal Access Form.pdf, both
+    HTTP 200 application/pdf.
+- url: https://www.bupa.com.au/for-providers/medical
+  type: ProviderPortal
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: Bupa Medical Gap Scheme, medical claiming and patient eligibility; registration and claiming by scheme process, not API.
+- url: https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+  type: Regulator
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: |
+    Australian CDR participant register, queried anonymously with x-v: 1.
+    203 data-holder brands, banking and energy only, no insurance sector and no
+    Bupa brand. Evidence the CDR seam stops before insurance.
+- url: https://www.bupa.com.au/sitemap.xml
+  type: Website
+  httpStatus: 200
+  fetched: '2026-07-25'
+  note: 810 URLs across three child sitemaps; none is a developer, API or SDK page.
+- url: https://api.bupa.com.au/
+  type: BaseURL
+  httpStatus: 502
+  fetched: '2026-07-25'
+  note: Custom APIM gateway host behind Imperva; returns 502 to all anonymous callers including every spec and well-known path probed.
+actions:
+  apisYmlCreated: true
+  apisListed: 0
+  openapiDirectoryCreated: false
+  reason: |
+    Nothing real was available to harvest. Recording the absence accurately — a
+    live but empty first-party portal, an internal-only management endpoint, a
+    502 gateway, a Dynamics partner portal behind Azure AD B2C, PDF access
+    forms, ECLIPSE and HICAPS as the actual rails, no ACORD anywhere, and no
+    Bupa brand in the CDR register — is the correct outcome for this record.
