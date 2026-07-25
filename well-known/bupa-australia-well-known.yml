@@ -1,0 +1,129 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every Bupa Australia host in apis.yml, 2026-07-25
+summary: |
+  Bupa Australia publishes no RFC 9116 security.txt, no /.well-known/api-catalog,
+  no ai-plugin.json and no OAuth 2.0 authorization-server metadata on any of its
+  own hosts. The only real, anonymously readable discovery documents in the whole
+  estate are two OpenID Connect configurations that guard sign-in rather than an
+  API: an Azure AD B2C policy on the Bupa-owned host partnerlogin.bupa.com.au
+  (guards the Bupa Partner Portal) and the Microsoft Entra ID tenant behind the
+  developer portal's staff sign-in. Both are saved verbatim beside this index.
+
+  Two probe artefacts matter for reading the table below. www.bupa.com.au,
+  bupa.com.au and partner.bupa.com.au sit behind Imperva, which answers unknown
+  paths with HTTP 200 and a JavaScript challenge page (content-type text/html,
+  ~1 KB, "_Incapsula_Resource" script) instead of a 404 — those rows are recorded
+  as status 200 with body: imperva-challenge-html, and they are NOT documents.
+  api.bupa.com.au, the custom Azure API Management gateway host, returns HTTP 502
+  to every anonymous caller on every path.
+hosts:
+- host: https://www.bupa.com.au
+  role: marketing website
+  note: Imperva-fronted; unknown paths answer 200 with a JS challenge page.
+- host: https://portal.api.bupa.com.au
+  role: Azure API Management managed developer portal
+  note: Honest 404s. No well-known surface at all.
+- host: https://api.bupa.com.au
+  role: Azure APIM custom gateway host
+  note: 502 to every anonymous request, including every /.well-known/ path.
+- host: https://partner.bupa.com.au
+  role: Dynamics 365 Power Pages partner portal
+  note: Imperva-fronted; unknown paths answer 200 with a JS challenge page.
+- host: https://partnerlogin.bupa.com.au
+  role: Azure AD B2C identity host for the partner portal
+- host: https://my.bupa.com.au
+  role: myBupa member portal
+  note: Returns 403 to unknown /.well-known/ paths.
+documents:
+- path: /.well-known/security.txt
+  host: https://www.bupa.com.au
+  status: 404
+- path: /.well-known/security.txt
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /.well-known/security.txt
+  host: https://api.bupa.com.au
+  status: 502
+- path: /.well-known/security.txt
+  host: https://partner.bupa.com.au
+  status: 404
+- path: /.well-known/security.txt
+  host: https://my.bupa.com.au
+  status: 404
+- path: /security.txt
+  host: https://www.bupa.com.au
+  status: 404
+- path: /.well-known/security.txt
+  host: https://www.bupa.com
+  status: 404
+  note: Bupa Group (UK parent) checked as well; also absent.
+- path: /.well-known/openid-configuration
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /.well-known/api-catalog
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /.well-known/ai-plugin.json
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /llms.txt
+  host: https://portal.api.bupa.com.au
+  status: 404
+- path: /.well-known/openid-configuration
+  host: https://www.bupa.com.au
+  status: 200
+  body: imperva-challenge-html
+  note: Not a document. text/html JS challenge, 924 bytes.
+- path: /.well-known/oauth-authorization-server
+  host: https://www.bupa.com.au
+  status: 200
+  body: imperva-challenge-html
+- path: /.well-known/api-catalog
+  host: https://www.bupa.com.au
+  status: 200
+  body: imperva-challenge-html
+- path: /.well-known/ai-plugin.json
+  host: https://www.bupa.com.au
+  status: 200
+  body: imperva-challenge-html
+- path: /llms.txt
+  host: https://www.bupa.com.au
+  status: 404
+- path: /.well-known/openid-configuration
+  host: https://api.bupa.com.au
+  status: 502
+- path: /.well-known/oauth-authorization-server
+  host: https://api.bupa.com.au
+  status: 502
+- path: /.well-known/openid-configuration
+  host: https://my.bupa.com.au
+  status: 403
+- path: /52bddae3-95ef-41bb-8c87-5561dead0bad/B2C_1A_PROD_01_SIGNUP_SIGNIN/v2.0/.well-known/openid-configuration
+  host: https://partnerlogin.bupa.com.au
+  status: 200
+  content_type: application/json
+  file: bupa-australia-partner-b2c-openid-configuration.json
+  kind: openid-configuration
+  note: |
+    Real OIDC discovery document, readable anonymously (a browser User-Agent is
+    required; a bare curl UA is served the Imperva challenge). Azure AD B2C
+    user-flow B2C_1A_PROD_01_SIGNUP_SIGNIN. Guards the Bupa Partner Portal,
+    not an API. scopes_supported is ["openid"] only.
+- path: /fee9c112-179f-46e3-ab98-f8d58602cf19/v2.0/.well-known/openid-configuration
+  host: https://login.microsoftonline.com
+  status: 200
+  content_type: application/json
+  file: bupa-australia-portal-entra-openid-configuration.json
+  kind: openid-configuration
+  external_host: true
+  note: |
+    Microsoft-hosted discovery document for the Entra ID tenant
+    fee9c112-179f-46e3-ab98-f8d58602cf19 that the developer portal's signin-aad
+    widget names. tenant_region_scope is "OC" (Oceania), confirming an
+    Australian tenant. Saved because it is the only published description of
+    how a human signs in to portal.api.bupa.com.au; the host belongs to
+    Microsoft, not to Bupa.

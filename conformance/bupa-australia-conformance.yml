@@ -1,0 +1,98 @@
+generated: '2026-07-25'
+method: searched
+source: |
+  Derived from the artefacts in this repository (well-known/, authentication/,
+  security/) and from live probes of the Bupa Australia public estate on
+  2026-07-25. No OpenAPI exists for this provider, so no standard is asserted
+  from a spec.
+note: |
+  Only two standards can be evidenced on Bupa Australia's public surface, and
+  both are identity standards guarding a human sign-in. Everything an API
+  conformance profile would normally read — media types, error format,
+  pagination, idempotency — is unpublished because no API specification is
+  released to anonymous developers. The rails that actually carry Bupa
+  Australia's transactions (ECLIPSE via Services Australia, the HICAPS and
+  HealthPoint terminal networks) are third-party standards that Bupa consumes
+  and does not publish.
+standards:
+- id: openid-connect-discovery-1.0
+  conforms: true
+  evidence: |
+    Two valid OIDC discovery documents served anonymously and saved verbatim in
+    well-known/: the Azure AD B2C policy on partnerlogin.bupa.com.au and the
+    Entra ID tenant fee9c112-179f-46e3-ab98-f8d58602cf19 behind the developer
+    portal sign-in. Both carry issuer, authorization_endpoint, token_endpoint,
+    jwks_uri and RS256 id_token signing.
+  scope: human sign-in only, not an API
+- id: oauth2
+  conforms: true
+  evidence: |
+    Authorization Code (and hybrid/implicit response types) advertised by both
+    discovery documents; token endpoints support client_secret_post and
+    client_secret_basic.
+  scope: human sign-in only, not an API
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on portal.api.bupa.com.au and 502 on api.bupa.com.au.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt absent on every Bupa Australia host and on the bupa.com group site.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No API specification or error reference is published, so no error format can be observed.
+- id: openapi
+  conforms: false
+  evidence: |
+    Zero OpenAPI or Swagger documents retrievable. Probed portal.api.bupa.com.au
+    (/openapi.json, /swagger.json — 404) and api.bupa.com.au (/openapi.json,
+    /openapi.yaml, /swagger.json, /swagger/v1/swagger.json, /v1/openapi.json,
+    /api-docs, /docs, /redoc — all 502) on 2026-07-25.
+- id: asyncapi
+  conforms: false
+  evidence: No event catalog, webhook reference or AsyncAPI document published.
+- id: graphql
+  conforms: false
+  evidence: api.bupa.com.au/graphql returns 502; no other /graphql surface responds on any Bupa Australia host.
+- id: grpc
+  conforms: false
+  evidence: No published .proto definitions; no public GitHub organization.
+- id: cdr-consumer-data-right
+  conforms: false
+  applicable: false
+  evidence: |
+    The Australian CDR participant register
+    (https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary,
+    HTTP 200) returns 203 data-holder brands drawn only from banking and
+    energy. No insurance sector, no Bupa brand. The CDR was designated to
+    extend to general insurance and then deferred; private health insurance is
+    a separate regulated market again. There is no live obligation.
+- id: fhir-r4
+  conforms: false
+  evidence: |
+    No FHIR endpoint, capability statement or resource shape is published by
+    Bupa Australia. As a payer it funds care rather than exchanging clinical
+    records over a public FHIR surface.
+- id: acord
+  conforms: false
+  applicable: false
+  evidence: |
+    No reference to ACORD, AL3, ACORD XML, NGDS or ACORD certification appears
+    anywhere on www.bupa.com.au or portal.api.bupa.com.au. Bupa Australia writes
+    private health insurance and runs healthcare provision, not property and
+    casualty or life, and Australia has no IVANS-style agency-download plumbing.
+third_party_rails:
+- id: eclipse-services-australia
+  role: consumed
+  note: |
+    Hospital patient eligibility checking and claiming run over ECLIPSE, the
+    national Services Australia claiming channel, reached through Civica's ECF
+    web client at https://eclipse.civica.com.au/ECFWeb/login. Bupa links to it
+    and registers providers by PDF form; it neither owns nor publishes the
+    interface.
+- id: hicaps-healthpoint
+  role: consumed
+  note: |
+    Ancillary claiming runs over the HICAPS and HealthPoint point-of-sale
+    terminal networks. https://www.bupa.com.au/for-providers states Bupa "has
+    engaged HICAPS and HealthPoint to activate their adjusted charge processing
+    feature". Third-party operated; no Bupa-published specification.

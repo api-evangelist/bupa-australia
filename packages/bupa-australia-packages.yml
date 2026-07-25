@@ -1,0 +1,59 @@
+generated: '2026-07-25'
+method: searched
+source: |
+  Registry searches on 2026-07-25 across npm (text and scope:bupa), PyPI,
+  GitHub repository search, plus the developer portal and the whole
+  www.bupa.com.au sitemap (810 URLs, none matching sdk/api/developer).
+official_count: 0
+summary: |
+  Bupa Australia ships no first-party client libraries. There is no @bupa npm
+  scope (0 packages), no PyPI project named bupa, bupa-api or bupa-sdk, and no
+  public GitHub organization under bupa, bupa-australia, bupaanz or bupa-anz
+  (all HTTP 404 from api.github.com). This is consistent with the posture: the
+  developer portal releases API specifications only after contact with the Bupa
+  Integration Fabric Team, so there is no public API for an SDK to wrap.
+packages: []
+registries_probed:
+- registry: npm
+  query: text=bupa; scope:bupa
+  official_found: 0
+- registry: pypi
+  query: bupa, bupa-api, bupa-sdk
+  official_found: 0
+  note: All three return HTTP 404.
+- registry: github
+  query: org bupa / bupa-australia / bupaanz / bupa-anz; repo search "bupa"
+  official_found: 0
+  note: |
+    No Bupa-owned organization exists. Repo search surfaces only the unrelated
+    R "bupaR" process-mining ecosystem, an archived SAP TechEd mock service and
+    personal projects.
+unofficial_namesakes:
+- language: javascript
+  registry: npm
+  name: bupa-api-sdk
+  url: https://www.npmjs.com/package/bupa-api-sdk
+  description: Bupa Enterprise API SDK
+  official: false
+  version: 3.1.0
+  created: '2026-05-28'
+  maintainer: deepakkaushal <deepakkaushal661@gmail.com>
+  repository: null
+  homepage: null
+  note: |
+    Published from a personal Gmail address with no repository, no homepage and
+    no link to Bupa. Named as if it were a Bupa client library. Recorded here
+    so the namesake is not mistaken for a first-party SDK; treat with the usual
+    caution given to unattributed packages that borrow a brand name.
+- language: javascript
+  registry: npm
+  name: bupa-onlineservice-mfe-payments
+  url: https://www.npmjs.com/package/bupa-onlineservice-mfe-payments
+  description: Angular micro-frontend library (generated with Angular CLI 16.2.0)
+  official: false
+  created: '2025-01-09'
+  maintainer: jechavarriab <jechavarriab@intergrupo.com>
+  note: |
+    Published from a systems-integrator (Intergrupo) address, not from Bupa, and
+    with no stated Bupa market unit. A vendor build artefact rather than a
+    supported Bupa Australia SDK.

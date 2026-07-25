@@ -1,0 +1,72 @@
+generated: '2026-07-25'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + developer-portal + identity hosts
+hosts:
+- host: www.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 11 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_preload: true
+- host: portal.api.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  3 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_preload: false
+  role: Azure API Management managed developer portal
+- host: api.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  3 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: false
+  hsts_preload: false
+  http_status: 502
+  role: Azure APIM custom gateway host, behind Imperva; 502 to all anonymous callers
+- host: partner.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 25 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_preload: true
+  role: Dynamics 365 Power Pages partner portal
+- host: partnerlogin.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 15 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: false
+  hsts_preload: false
+  role: Azure AD B2C identity host
+- host: my.bupa.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_preload: false
+  role: myBupa member portal
+domains:
+- domain: bupa.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+notes: |
+  Every Bupa Australia host probed negotiates TLS 1.3 and sets HSTS with a
+  one-year max-age; the two consumer-facing hosts (www and partner) additionally
+  set includeSubDomains with preload. The registrable domain publishes SPF and a
+  DMARC record at p=reject, the strongest of the three DMARC policies. The gaps
+  are DNSSEC (unsigned) and CAA (no records, so any CA may issue for
+  bupa.com.au). Absence of a record is recorded data, not an inference.

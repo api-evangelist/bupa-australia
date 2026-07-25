@@ -1,0 +1,59 @@
+generated: '2026-07-25'
+method: searched
+source: |
+  The two anonymously readable OpenID Connect discovery documents saved in
+  well-known/, fetched 2026-07-25. There is no OpenAPI for this provider, so no
+  scope could be derived from a spec.
+scope: identity-only
+note: |
+  Bupa Australia publishes NO API scopes. The scopes below are the OpenID
+  Connect scopes advertised by the two sign-in surfaces — they authorize a
+  human session against the partner portal and the developer portal, not a
+  machine-to-machine call against a Bupa API. The API gateway
+  (api.bupa.com.au) returns 502 anonymously and the developer portal releases
+  API specifications only after contact with the Bupa Integration Fabric Team,
+  so any per-API scope or permission model remains unpublished. Recording the
+  identity scopes is the honest floor, not a claim of an API scope surface.
+schemes:
+- name: partner-portal-b2c
+  source: well-known/bupa-australia-partner-b2c-openid-configuration.json
+  guards: https://partner.bupa.com.au/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/oauth2/v2.0/authorize
+    tokenUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/oauth2/v2.0/token
+- name: developer-portal-entra
+  source: well-known/bupa-australia-portal-entra-openid-configuration.json
+  guards: https://portal.api.bupa.com.au/signin
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/oauth2/v2.0/authorize
+    tokenUrl: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/oauth2/v2.0/token
+scopes:
+- scope: openid
+  description: OpenID Connect sign-in; issues an RS256 id_token with a pairwise subject.
+  kind: identity
+  flows: [authorizationCode]
+  sources:
+  - well-known/bupa-australia-partner-b2c-openid-configuration.json
+  - well-known/bupa-australia-portal-entra-openid-configuration.json
+- scope: profile
+  description: Basic profile claims on the developer-portal Entra sign-in.
+  kind: identity
+  flows: [authorizationCode]
+  sources: [well-known/bupa-australia-portal-entra-openid-configuration.json]
+- scope: email
+  description: Email claim on the developer-portal Entra sign-in.
+  kind: identity
+  flows: [authorizationCode]
+  sources: [well-known/bupa-australia-portal-entra-openid-configuration.json]
+- scope: offline_access
+  description: Refresh-token issuance on the developer-portal Entra sign-in.
+  kind: identity
+  flows: [authorizationCode]
+  sources: [well-known/bupa-australia-portal-entra-openid-configuration.json]
+api_scopes: []
+api_scopes_note: |
+  None published. The B2C discovery document advertises scopes_supported
+  ["openid"] and nothing else; no resource scope, no application ID URI and no
+  audience for any Bupa API appears on any anonymously reachable surface.

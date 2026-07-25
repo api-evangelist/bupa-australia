@@ -1,0 +1,55 @@
+generated: '2026-07-25'
+method: searched
+source: |
+  Live probes of the Bupa Australia estate on 2026-07-25 — developer portal,
+  status/trust subdomain DNS, the full www.bupa.com.au sitemap (810 URLs) — plus
+  the findings already recorded in review.yml.
+summary: |
+  Bupa Australia publishes no API lifecycle policy of any kind. There is no
+  status page, no versioning scheme, no deprecation or sunset policy, no
+  changelog and no SLA on any anonymously reachable surface. The developer
+  portal exists but is empty to anonymous visitors, and every route to a
+  specification runs through the Bupa Integration Fabric Team, so lifecycle
+  commitments — if they exist — are made privately in partner integration
+  guides rather than published.
+versioning:
+  scheme: unpublished
+  current: null
+  docs: null
+  note: |
+    No version identifier appears on any public Bupa Australia API surface. The
+    APIM gateway host api.bupa.com.au returns 502 to anonymous callers, so even
+    a URI-path version segment cannot be observed.
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: No deprecation policy, sunset commitment or RFC 8594 header support is documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_probes:
+- host: status.bupa.com.au
+  result: NXDOMAIN
+- url: https://www.bupa.com.au/health-insurance/status
+  status: 404
+changelog: null
+changelog_note: |
+  No dated changelog or release-notes page exists on portal.api.bupa.com.au
+  (nav is Home / Get Started / Sign-In only) or anywhere in the marketing
+  sitemap.
+deprecated_operations: []
+deprecated_operations_note: None derivable — this repository contains no OpenAPI.
+onboarding_lifecycle:
+  model: human-gated
+  verbatim: |
+    1. Sign Up — Contact the Bupa Integration Fabric Team with your interest to
+    get access to our API specifications.
+    2. Explore Bupa APIs — Browse our API Products to find the capabilities you
+    need and learn how to interact.
+    3. Request for Integration — Contact the Bupa Integration Fabric Team for
+    Integration Guides and Environments for selected Products and APIs.
+  source: https://portal.api.bupa.com.au/get-started
+  note: |
+    The only lifecycle statement Bupa Australia publishes is the onboarding
+    sequence itself, and two of its three steps are "contact the team".

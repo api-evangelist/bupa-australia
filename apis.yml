@@ -60,16 +60,52 @@ common:
   url: https://portal.api.bupa.com.au/
 - type: Documentation
   url: https://portal.api.bupa.com.au/get-started
+- type: GettingStarted
+  url: https://portal.api.bupa.com.au/get-started
+- type: APIReference
+  url: https://portal.api.bupa.com.au/apis
 - type: SignUp
   url: https://portal.api.bupa.com.au/signin
 - type: PartnerPortal
   url: https://partner.bupa.com.au/
 - type: ProviderPortal
   url: https://www.bupa.com.au/for-providers
+- type: Support
+  url: https://www.bupa.com.au/contact-us
+- type: HelpCenter
+  url: https://www.bupa.com.au/help
+- type: Blog
+  url: https://www.bupa.com.au/healthcare-guide
+- type: Pricing
+  url: https://www.bupa.com.au/health-insurance/quote
 - type: TermsOfService
   url: https://www.bupa.com.au/terms-and-conditions
 - type: PrivacyPolicy
   url: https://www.bupa.com.au/privacy
+- type: Authentication
+  name: Bupa Australia authentication profile
+  url: authentication/bupa-australia-authentication.yml
+- type: OAuthScopes
+  name: Bupa Australia OAuth / OIDC scopes (identity only)
+  url: scopes/bupa-australia-scopes.yml
+- type: WellKnown
+  name: Bupa Australia well-known discovery index
+  url: well-known/bupa-australia-well-known.yml
+- type: Conformance
+  name: Bupa Australia standards conformance
+  url: conformance/bupa-australia-conformance.yml
+- type: Lifecycle
+  name: Bupa Australia API lifecycle posture
+  url: lifecycle/bupa-australia-lifecycle.yml
+- type: Packages
+  name: Bupa Australia client libraries (none first-party)
+  url: packages/bupa-australia-packages.yml
+- type: DomainSecurity
+  name: Bupa Australia domain security probe
+  url: security/bupa-australia-domain-security.yml
+- type: LLMsTxt
+  name: Bupa Australia llms.txt
+  url: llms/bupa-australia-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,87 @@
+generated: '2026-07-25'
+method: searched
+source: |
+  Live fetches on 2026-07-25 of the two anonymously readable OpenID Connect
+  discovery documents in the Bupa Australia estate, plus the developer portal
+  sign-in page and its config.json. No OpenAPI exists for this provider, so
+  nothing here is derived from a spec.
+docs: https://portal.api.bupa.com.au/get-started
+summary:
+  types: [oauth2, openIdConnect]
+  api_key_in: []
+  oauth2_flows: [authorizationCode, implicit, hybrid]
+  api_authentication_published: false
+  note: |
+    Every authentication mechanism Bupa Australia publishes guards a HUMAN
+    sign-in, not an API. The developer portal releases API specifications only
+    after contacting the Bupa Integration Fabric Team, so no API base URL, no
+    key header name and no token audience is documented to anonymous
+    developers. The schemes below are what can actually be read from the
+    public surface, and they are recorded as what they are.
+schemes:
+- name: partner-portal-b2c
+  type: openIdConnect
+  status: confirmed
+  guards: Bupa Partner Portal (https://partner.bupa.com.au/)
+  platform: Azure AD B2C
+  openIdConnectUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/B2C_1A_PROD_01_SIGNUP_SIGNIN/v2.0/.well-known/openid-configuration
+  issuer: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/v2.0/
+  authorizationUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/oauth2/v2.0/authorize
+  tokenUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/oauth2/v2.0/token
+  endSessionUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/oauth2/v2.0/logout
+  jwksUrl: https://partnerlogin.bupa.com.au/52bddae3-95ef-41bb-8c87-5561dead0bad/b2c_1a_prod_01_signup_signin/discovery/v2.0/keys
+  policy: B2C_1A_PROD_01_SIGNUP_SIGNIN
+  scopes_supported: [openid]
+  response_types_supported: [code, code id_token, code token, code id_token token, id_token, id_token token, token, token id_token]
+  response_modes_supported: [query, fragment, form_post]
+  token_endpoint_auth_methods_supported: [client_secret_post, client_secret_basic]
+  id_token_signing_alg_values_supported: [RS256]
+  subject_types_supported: [pairwise]
+  claims_supported: [name, given_name, family_name, email, sub, tid, mobile, iss, iat, exp, aud, acr, nonce, auth_time]
+  code_challenge_methods_supported: null
+  sources: [well-known/bupa-australia-partner-b2c-openid-configuration.json]
+- name: developer-portal-entra
+  type: openIdConnect
+  status: confirmed
+  guards: Sign-in to the Bupa developer portal (https://portal.api.bupa.com.au/signin)
+  platform: Microsoft Entra ID
+  tenant: fee9c112-179f-46e3-ab98-f8d58602cf19
+  tenant_region_scope: OC
+  openIdConnectUrl: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/v2.0/.well-known/openid-configuration
+  issuer: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/v2.0
+  authorizationUrl: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/oauth2/v2.0/authorize
+  tokenUrl: https://login.microsoftonline.com/fee9c112-179f-46e3-ab98-f8d58602cf19/oauth2/v2.0/token
+  scopes_supported: [openid, profile, email, offline_access]
+  response_types_supported: [code, id_token, code id_token, id_token token]
+  id_token_signing_alg_values_supported: [RS256]
+  subject_types_supported: [pairwise]
+  sources: [well-known/bupa-australia-portal-entra-openid-configuration.json]
+  evidence: |
+    https://portal.api.bupa.com.au/signin ships a signin-aad widget configured
+    with tenants ["fee9c112-179f-46e3-ab98-f8d58602cf19"] alongside a
+    signin-aad-b2c widget labelled "Sign-in / Register" — one path for Bupa
+    staff, one for external registrants.
+- name: apim-subscription-key
+  type: apiKey
+  status: implied
+  guards: The Bupa API gateway (api.bupa.com.au), once a partner is onboarded.
+  platform: Azure API Management
+  in: null
+  parameter_name: null
+  evidence: |
+    portal.api.bupa.com.au is an Azure APIM managed developer portal
+    (config.json names service banzprodapim01) and its home page copy reads
+    "Start with simple registration and get the keys to manage, build and
+    test." Subscription keys (Ocp-Apim-Subscription-Key by APIM default) are
+    the platform norm, but Bupa publishes no header name, no scope and no base
+    URL, so nothing is asserted here beyond the platform fact.
+  note: Inferred from the platform, not from any published API reference.
+probes:
+- url: https://api.bupa.com.au/.well-known/openid-configuration
+  status: 502
+- url: https://api.bupa.com.au/.well-known/oauth-authorization-server
+  status: 502
+- url: https://portal.api.bupa.com.au/.well-known/openid-configuration
+  status: 404
+- url: https://portal.api.bupa.com.au/.well-known/oauth-authorization-server
+  status: 404
