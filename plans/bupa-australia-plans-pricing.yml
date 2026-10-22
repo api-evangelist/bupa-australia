@@ -1,0 +1,17 @@
+generated: '2026-10-21'
+method: none
+source: https://portal.api.bupa.com.au/get-started
+name: Bupa Australia pricing
+audience: unclear
+pricing_basis: none
+published: false
+delivery:
+  model: managed
+plan_count: 0
+plans: []
+note: >-
+  Bupa Australia publishes no API plans or pricing. The developer portal's
+  /products route renders an empty "Products: List" to anonymous visitors and
+  access is by contacting the Bupa Integration Fabric Team (Get Started page,
+  HTTP 200, 2026-10-21). Retail insurance premiums on www.bupa.com.au are
+  consumer prices, not API pricing, and are deliberately not recorded here.

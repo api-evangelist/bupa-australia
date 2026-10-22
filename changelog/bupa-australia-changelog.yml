@@ -1,0 +1,14 @@
+generated: '2026-10-21'
+method: none
+source: https://portal.api.bupa.com.au/api-changelog
+name: Bupa Australia API changelog
+scheme: null
+current_version: null
+entries: []
+note: >-
+  The Azure API Management developer portal serves a changelog route
+  (GET https://portal.api.bupa.com.au/api-changelog -> HTTP 200, title
+  "APIs: Changelog - Bupa Developer Portal", 4,923 bytes) whose only content is
+  the heading "API Updates" with no entries, both as plain HTML and when
+  rendered in a headless browser on 2026-10-21. No dated change history is
+  published to anonymous visitors.

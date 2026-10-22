@@ -1,52 +1,69 @@
 # Bupa Australia
+> Bupa Australia's core business is private health insurance for Australian residents, including hospital, extras and combined cover, as well as Overseas Student Health Cover (OSHC) and Overseas Visitors Cover (OVC). Bupa also offers general insurance (home, car, pet, landlords, travel, and phone & cyber) and corporate health cover through this site. This file highlights Bupa's principal health insurance, general insurance, product-selection and consumer guidance pages.
 
-> Bupa Australia is the Australian market unit of the UK-headquartered Bupa group and one of the country's largest private health insurers, trading as Bupa HI Pty Ltd (ABN 81 000 057 590). It writes hospital and ancillary "extras" cover, overseas visitor and overseas student health cover, and corporate health plans, and — unusually for a carrier — also owns the provision that consumes those benefits through Bupa Dental, Bupa Optical, Bupa Medical Visa Services and Bupa Aged Care.
+## Core Health Insurance
+- [Health Insurance](https://www.bupa.com.au/health-insurance): Explore Bupa health insurance, including hospital, extras and combined cover.
+- [Compare Health Insurance](https://www.bupa.com.au/health-insurance/compare): Compare Bupa health insurance options.
+- [Get a Health Insurance Quote](https://www.bupa.com.au/health-insurance/quote): Get a quote for Bupa health insurance.
+- [Why Get Health Insurance](https://www.bupa.com.au/health-insurance/why-health-insurance): Learn about private health insurance in Australia and why people choose cover.
+- [Understanding Your Health Cover](https://www.bupa.com.au/health-insurance/understanding-your-health-cover): Guidance on understanding and using health insurance cover.
+- [Hospital Cover Tiers](https://www.bupa.com.au/health-insurance/tiers): Understand the Gold, Silver, Bronze and Basic hospital cover tiers.
 
-**There is no public, self-serve Bupa Australia API.** A first-party developer portal exists at https://portal.api.bupa.com.au/ (Azure API Management managed portal, meta author "Bupa HI Pty Ltd ABN 81 000 057 590"), but it returns HTTP 200 while listing nothing: `/apis` and `/products` render empty headings to anonymous visitors, `config.json` points at an internal-only management host, and the Get Started page routes every onboarding step through the "Bupa Integration Fabric Team" before any specification is released. The API gateway host `api.bupa.com.au` returns HTTP 502 to every anonymous caller, including every OpenAPI, Swagger, GraphQL and `/.well-known/` path probed on 2026-07-25.
+## Hospital and Extras Cover
+- [Hospital Cover](https://www.bupa.com.au/health-insurance/hospital-cover): Explore Bupa hospital cover options.
+- [Extras Cover](https://www.bupa.com.au/health-insurance/extras-cover): Explore Bupa extras cover for services such as dental, optical and physiotherapy.
+- [Hospital and Extras Cover](https://www.bupa.com.au/health-insurance/hospital-and-extras-cover): Explore combined hospital and extras cover.
+- [Health Insurance Packages](https://www.bupa.com.au/health-insurance/packages): View Bupa packaged hospital and extras options.
+- [Dental Insurance](https://www.bupa.com.au/health-insurance/extras-cover/dental-insurance): Learn about dental services available through eligible extras cover.
+- [Orthodontics Cover](https://www.bupa.com.au/health-insurance/extras-cover/dental-insurance/orthodontics): Learn how eligible extras cover may apply to orthodontic treatment.
+- [Ambulance Cover](https://www.bupa.com.au/health-insurance/ambulance-cover): Learn about Bupa ambulance cover and state-based considerations.
+- [Members First](https://www.bupa.com.au/health-insurance/members-first): Learn about Bupa's Members First healthcare provider network.
 
-If you are an agent trying to integrate with Bupa Australia: there is nothing to call. Contact the Bupa Integration Fabric Team through the developer portal, or use the human and terminal channels below.
+## Health Insurance by Life Stage
+- [Singles Health Insurance](https://www.bupa.com.au/health-insurance/singles): Health insurance information and options for singles.
+- [Couples Health Insurance](https://www.bupa.com.au/health-insurance/couples): Health insurance information and options for couples.
+- [Family Health Insurance](https://www.bupa.com.au/health-insurance/family): Health insurance information and options for families.
+- [Single Parent Health Insurance](https://www.bupa.com.au/health-insurance/single-parents): Health insurance information and options for single-parent families.
+- [Health Insurance for Older Australians](https://www.bupa.com.au/health-insurance/life-stages/older-australians): Health insurance guidance for older Australians.
+- [Health Insurance for Young Adults](https://www.bupa.com.au/health-insurance/life-stages/young-adults): Health insurance guidance for young adults.
 
-## APIs
+## Health Insurance and Tax
+- [Medicare Levy Surcharge](https://www.bupa.com.au/health-insurance/why-health-insurance/tax/medicare-levy-surcharge): Learn how the Medicare Levy Surcharge relates to private hospital cover.
+- [Lifetime Health Cover](https://www.bupa.com.au/health-insurance/why-health-insurance/tax/lifetime-health-cover): Learn about Lifetime Health Cover loading.
+- [Private Health Insurance Rebate](https://www.bupa.com.au/health-insurance/why-health-insurance/tax/private-health-insurance-rebate): Learn about the Australian Government Private Health Insurance Rebate.
 
-No public API is published. Zero OpenAPI, Swagger, AsyncAPI, GraphQL or gRPC definitions could be retrieved.
+## Overseas Student Health Cover (OSHC)
+- [Overseas Student Health Cover](https://www.bupa.com.au/health-insurance/oshc): Explore Bupa OSHC for international students studying in Australia.
+- [OSHC Cover Information](https://www.bupa.com.au/health-insurance/overseas-students/cover/oshc): View information about Bupa OSHC cover.
+- [OSHC FAQs](https://www.bupa.com.au/health-insurance/oshc/faqs): Find answers to common questions about Bupa OSHC.
+- [About to Graduate](https://www.bupa.com.au/health-insurance/oshc/about-to-graduate): Guidance for OSHC members approaching graduation.
 
-## Developer surfaces
+## Overseas Visitors Cover (OVC)
+- [Overseas Visitors Cover](https://www.bupa.com.au/health-insurance/cover/overseas-visitors): Explore Bupa health cover information for overseas visitors and workers.
+- [Visiting Australia Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/visiting): Health cover information for people visiting Australia.
+- [Working Visitors Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/working): Health cover information for people working in Australia on eligible visas.
+- [Working Holiday Visitors](https://www.bupa.com.au/health-insurance/cover/overseas-visitors/working-holiday-visitors): Health cover guidance for working holiday visa subclasses 417 and 462.
+- [Working and Holidaying Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/working-and-holidaying): Explore Bupa cover options for working holiday visitors.
+- [Essential Visitors Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/cover/essential-visitors-cover): View Bupa Essential Visitors Cover.
+- [Essential Lite Visitors Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/cover/essential-lite-visitors-cover): View Bupa Essential Lite Visitors Cover.
+- [Short Stay Visitors Cover](https://www.bupa.com.au/health-insurance/overseas-visitors/cover/short-stay-visitors-cover): View Bupa cover for eligible short-stay visitors.
+- [Reciprocal Health Cover](https://www.bupa.com.au/health-insurance/cover/overseas-visitors/reciprocal-health-cover): Learn about cover for eligible visitors from reciprocal healthcare agreement countries.
 
-- [Bupa Developer Portal](https://portal.api.bupa.com.au/): First-party Azure API Management portal. Live, first-party, and empty to anonymous visitors.
-- [Get Started](https://portal.api.bupa.com.au/get-started): The three-step onboarding. Steps 1 and 3 both read "Contact the Bupa Integration Fabric Team".
-- [APIs list](https://portal.api.bupa.com.au/apis): HTTP 200, no catalog rendered anonymously.
-- [Sign in / Register](https://portal.api.bupa.com.au/signin): Two Azure identity paths — Entra ID (tenant fee9c112-179f-46e3-ab98-f8d58602cf19, region OC) for staff and Azure AD B2C for external registrants.
+## General Insurance
+- [General Insurance](https://www.bupa.com.au/general-insurance): Explore Bupa's non-health insurance products, including home, car, pet, travel and phone & cyber cover.
+- [Home Insurance](https://www.bupa.com.au/home-insurance): Explore Bupa home and contents insurance options.
+- [Car Insurance](https://www.bupa.com.au/car-insurance): Explore Bupa car insurance, including comprehensive and third-party cover.
+- [Pet Insurance](https://www.bupa.com.au/pet-insurance): Explore Bupa pet insurance for accident, illness and routine care.
+- [Landlords Insurance](https://www.bupa.com.au/landlords-insurance): Explore Bupa landlords insurance for rental properties.
+- [Travel Insurance](https://www.bupa.com.au/travel-insurance): Explore Bupa travel insurance for domestic and international trips.
+- [Phone and Cyber Insurance](https://www.bupa.com.au/mobile-phone-cyber-insurance): Explore Bupa cover for mobile phones and online identity protection.
 
-## The real integration rails
-
-Bupa Australia's counterparties do not integrate over a Bupa API. They integrate over these:
-
-- [ECLIPSE via Civica ECF](https://eclipse.civica.com.au/ECFWeb/login): Hospital patient eligibility checking and claiming run over the national Services Australia ECLIPSE channel. Registration is by PDF form. Third-party operated.
-- HICAPS and HealthPoint terminals: Ancillary claiming is point-of-sale. https://www.bupa.com.au/for-providers states Bupa "has engaged HICAPS and HealthPoint to activate their adjusted charge processing feature".
-- [Bupa Partner Portal](https://partner.bupa.com.au/): Dynamics 365 Power Pages behind Azure AD B2C. Access is requested by downloading and returning a PDF form.
-- [For providers](https://www.bupa.com.au/for-providers): Ancillary, medical and hospital provider information and resources.
-
-## Artifacts in this profile
-
-- [apis.yml](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/apis.yml): The APIs.json record for Bupa Australia.
-- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/authentication/bupa-australia-authentication.yml): The two confirmed OpenID Connect sign-in schemes and the implied APIM subscription-key model.
-- [OAuth scopes](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/scopes/bupa-australia-scopes.yml): Identity scopes only (openid, profile, email, offline_access). No API scopes are published.
-- [Well-known index](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/well-known/bupa-australia-well-known.yml): Every /.well-known/ path probed, with status. Two real OIDC discovery documents saved verbatim.
-- [Conformance](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/conformance/bupa-australia-conformance.yml): OIDC and OAuth 2.0 conform (sign-in only); no CDR obligation, no ACORD, no FHIR surface.
-- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/lifecycle/bupa-australia-lifecycle.yml): No status page, no versioning, no deprecation policy, no changelog.
-- [Domain security](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/security/bupa-australia-domain-security.yml): TLS 1.3 and HSTS everywhere, SPF and DMARC p=reject; no DNSSEC, no CAA.
-- [Packages](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/packages/bupa-australia-packages.yml): No first-party SDKs on any registry; two unofficial namesake npm packages recorded.
-- [Review](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/review.yml): The full API Evangelist review, with every probe and HTTP status.
-
-## Regulatory context
-
-Australia has the legal machinery for open insurance and no live obligation for this sector. A first-hand query of the Consumer Data Right participant register (https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary, HTTP 200, 2026-07-25) returned 203 data-holder brands drawn only from banking and energy — no insurance sector and no Bupa brand. The CDR was designated to extend to general insurance and then deferred; private health insurance is a separate regulated market again.
-
-## Company
-
-- [Bupa Australia](https://www.bupa.com.au/): Health insurance and healthcare provision.
-- [About Bupa](https://www.bupa.com.au/about-us)
-- [Contact us](https://www.bupa.com.au/contact-us)
-- [Help](https://www.bupa.com.au/help)
-- [Terms and conditions](https://www.bupa.com.au/terms-and-conditions)
-- [Privacy](https://www.bupa.com.au/privacy)
+## Key Support and Company Information
+- [Find a Provider](https://www.bupa.com.au/find-a-provider): Search for recognised healthcare providers.
+- [Health Programs](https://www.bupa.com.au/health-programs): Explore health programs available to eligible Bupa members.
+- [Mental Health Support](https://www.bupa.com.au/health-insurance/why-choose-bupa/mental-health-support): Learn about Bupa mental health support and cover information.
+- [Corporate Health Insurance](https://www.bupa.com.au/corporate): Explore Bupa health insurance solutions for organisations.
+- [About Bupa Australia](https://www.bupa.com.au/about-us): Learn about Bupa Australia.
+- [Healthcare Guide](https://www.bupa.com.au/healthcare-guide): Guidance on navigating healthcare in Australia.
+- [Health Insurance Glossary](https://www.bupa.com.au/glossary): Definitions of common health insurance terms.
+- [Help Centre](https://www.bupa.com.au/help): Find help with Bupa health insurance, membership, payments and claims.

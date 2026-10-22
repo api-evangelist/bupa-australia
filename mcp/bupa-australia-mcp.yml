@@ -1,0 +1,25 @@
+name: Bupa Australia MCP server
+type: MCPServer
+generated: '2026-10-21'
+method: none
+status: absent
+description: >-
+  No official Bupa Australia MCP server, hosted or local, was found. The
+  pre-flight contract discovery (2026-10-21) graded MCP absent on
+  www.bupa.com.au, portal.api.bupa.com.au and partner.bupa.com.au. The
+  provider's own llms.txt (www.bupa.com.au/llms.txt) does not mention MCP or
+  an API, and a web search for a Bupa MCP server found nothing. Bupa's only
+  developer surface is the partner-gated Azure API Management portal at
+  portal.api.bupa.com.au, which lists no APIs to anonymous visitors. No public
+  OpenAPI exists in this repo, so we could not derive a candidate tool list.
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+tools: []
+checked:
+- url: https://www.bupa.com.au/llms.txt
+  status: 200
+  note: provider llms.txt; no MCP or API references
+- url: https://portal.api.bupa.com.au/llms.txt
+  status: 404

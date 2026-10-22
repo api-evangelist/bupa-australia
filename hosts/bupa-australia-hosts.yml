@@ -1,0 +1,116 @@
+generated: '2026-10-21'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 8
+  own: 3
+  other_domain: 2
+  platform: 3
+  roles:
+  - api
+  - identity
+  - other
+  - partner
+  - portal
+  - website
+hosts:
+- host: api.com.au
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: api.com.au
+  role: api
+  relation: other-domain
+- host: login.microsoftonline.com
+  found_by:
+  - vendor-detect
+  types: []
+  serves:
+  - identity
+  vendor: azure-ad-b2c
+  registrable_domain: microsoftonline.com
+  role: identity
+  relation: other-domain
+- host: partner.bupa.com.au
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  types:
+  - PartnerPortal
+  serves: []
+  registrable_domain: bupa.com.au
+  role: partner
+  relation: own
+- host: portal.api.bupa.com.au
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - DeveloperPortal
+  - Documentation
+  - GettingStarted
+  - APIReference
+  - SignUp
+  serves:
+  - docs
+  registrable_domain: bupa.com.au
+  role: portal
+  relation: own
+- host: www.bupa.com.au
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - About
+  - ProviderPortal
+  - Support
+  - HelpCenter
+  - Blog
+  - Pricing
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - cdn
+  vendor: imperva
+  registrable_domain: bupa.com.au
+  role: website
+  relation: own
+- host: www.facebook.com
+  found_by:
+  - pointer
+  types:
+  - Facebook
+  serves: []
+  registrable_domain: facebook.com
+  role: other
+  relation: platform
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.youtube.com
+  found_by:
+  - pointer
+  types:
+  - YouTube
+  serves: []
+  registrable_domain: youtube.com
+  role: other
+  relation: platform

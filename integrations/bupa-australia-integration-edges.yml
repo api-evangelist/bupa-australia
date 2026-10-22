@@ -1,0 +1,44 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://zapier.com/apps/bupa-australia/integrations
+- https://n8n.io/integrations/bupa-australia/
+- https://composio.dev/toolkits/bupa-australia
+- https://monid.ai/tools/bupa-australia
+- https://www.bupa.com.au/for-providers/ancillary
+- https://www.bupa.com.au/for-providers/hospital
+checked:
+- https://composio.dev/toolkits/bupa-australia
+- https://monid.ai/tools/bupa-australia
+- https://n8n.io/integrations/bupa-australia/
+- https://zapier.com/apps/bupa-australia/integrations
+- https://www.bupa.com.au/for-providers/ancillary
+- https://www.bupa.com.au/for-providers/hospital
+summary: 'No marketplace listings (Zapier, n8n, Composio, Monid all checked). The only named integration partners
+  are the claiming rails Bupa directs providers to on its own for-providers pages: HICAPS and HealthPoint terminals
+  for ancillary providers, ECLIPSE for hospital eligibility checking. These are claiming channels, not API integrations.'
+marketplace_apps: []
+edges:
+- partner_name: HICAPS
+  partner: null
+  type: claimed
+  evidence: https://www.bupa.com.au/for-providers/ancillary
+  direction: third-party
+  category: health-claiming
+  use_case: Ancillary provider point-of-sale claiming; page links "HICAPS User Guides", "HICAPS Item Number Guides",
+    "HICAPS FAQs".
+- partner_name: HealthPoint
+  partner: null
+  type: claimed
+  evidence: https://www.bupa.com.au/for-providers/ancillary
+  direction: third-party
+  category: health-claiming
+  use_case: Ancillary provider claiming terminal; page links "HealthPoint guides and assistance".
+- partner_name: ECLIPSE (Services Australia)
+  partner: null
+  type: claimed
+  evidence: https://www.bupa.com.au/for-providers/hospital
+  direction: third-party
+  category: health-claiming
+  use_case: Hospital patient eligibility checking; page section "ECLIPSE hospital patient eligibility checking".
+templates: []

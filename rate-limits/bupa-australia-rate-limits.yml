@@ -1,0 +1,13 @@
+generated: '2026-10-21'
+method: none
+source: https://portal.api.bupa.com.au/get-started
+name: Bupa Australia rate limits
+limit_count: 0
+limits: []
+headers: []
+note: >-
+  No rate limits are published. The developer portal's /apis and /products
+  routes list nothing to anonymous visitors, and the Get Started page
+  (HTTP 200, 2026-10-21) only says to "Contact the Bupa Integration Fabric Team
+  for Integration Guides and Environments for selected Products and APIs."
+  Any limits are disclosed privately to approved integrators.

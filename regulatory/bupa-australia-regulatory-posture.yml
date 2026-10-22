@@ -1,0 +1,90 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+- https://www.bupa.com.au/accessibility
+notes: >-
+  The dossier's PrivacyPolicy pointer (https://www.bupa.com.au/privacy) redirects to the Privacy and
+  Security Trust Centre, which holds no policy text itself; its Privacy page
+  (https://www.bupa.com.au/help/privacy-and-security-trust-centre/privacy, 200) links the "Information
+  Handling Policy" PDF (13 pages, modified 2026-10-16). That PDF is the source for the privacy signals
+  below; quotes come from its text layer with line breaks collapsed to single spaces. The Terms and
+  Conditions page (200) carried no signal candidates. Signals the pages do not address (retention periods,
+  breach notification, subprocessor list, GPC, age assurance, transparency report) are deliberately absent.
+signals:
+  data_subject_request:
+    url: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+    section: '6.1 Accessing and correcting your personal information'
+    rights_named: [access, correction]
+    stated_sla: 'within a reasonable time (no fixed period stated)'
+    escalation: Bupa Customer Relations, then Office of the Australian Information Commissioner (oaic.gov.au)
+    evidence:
+    - source: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        You can ask us for access to the information we hold about you at any time. Simply contact us (see
+        contact details below) to make your request. We will aim to meet your request within a reasonable
+        time and in the manner requested by you if it is reasonable to do so.
+    - source: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        We will respond to your request within a reasonable period and take reasonable steps to amend your
+        records. In some circumstances we may decline to amend your records. If we decline, we will write to
+        you and tell you why.
+    note: >-
+      Establishes access and correction rights (Australian Privacy Act style) with a written-reasons duty on
+      refusal. No deletion or portability right is named, and no fixed response deadline is given.
+  ai_transparency:
+    url: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+    section: '3.4 Use of artificial intelligence (AI)'
+    evidence:
+    - source: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        Bupa may use AI applications to process your personal information, including to: • detect and
+        prevent fraud; • transcribe and summarise your information and interactions with us (including phone
+        conversations and online chats); • undertake data analytics of your interactions with us (including
+        sentiment and trends analysis);
+    note: >-
+      A purpose-level disclosure that personal information (including call and chat content) is processed by
+      AI applications. It does not name models or vendors, and offers no opt-out or human-review statement.
+  data_residency:
+    url: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+    section: '8. Overseas disclosure'
+    countries_named: [United States of America]
+    evidence:
+    - source: https://www.bupa.com.au/-/media/Dotcom/Files/pdfs/bupa-info-handling-policy
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        We may disclose your personal information to organisations located outside of Australia. These
+        overseas organisations are third party service providers or suppliers (or their related entities)
+        which support us in delivering our products and services and are likely to be located in the United
+        States of America.
+    note: >-
+      No Australia-only residency commitment: the policy discloses cross-border transfer to third-party
+      providers, naming the United States as the likely location.
+  accessibility_conformance:
+    url: https://www.bupa.com.au/accessibility
+    section: 'Our commitment to digital inclusion'
+    standard: WCAG (latest), level AA, stated as a goal
+    evidence:
+    - source: https://www.bupa.com.au/accessibility
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        To help make our digital experiences more accessible to people with disability we’re committed to
+        working towards meeting the latest standard of the Web Content Accessibility Guidelines (WCAG) at an
+        AA level.
+    - source: https://www.bupa.com.au/accessibility
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        We’re developing an enterprise-wide Digital Accessibility Policy that outlines our intention to
+        achieve our WCAG conformance goal.
+    note: >-
+      A commitment to work towards WCAG AA, not a claim of conformance. No conformance report or audit date
+      is published on the page.

@@ -1,5 +1,5 @@
 generated: '2026-07-25'
-method: searched
+method: none
 source: |
   Registry searches on 2026-07-25 across npm (text and scope:bupa), PyPI,
   GitHub repository search, plus the developer portal and the whole

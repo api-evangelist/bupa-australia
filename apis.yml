@@ -1,40 +1,29 @@
 aid: bupa-australia
+
 url: https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/apis.yml
+
 name: Bupa Australia
+
 kind: company
-description: >-
-  Bupa Australia is the Australian market unit of the UK-headquartered Bupa
-  group and one of the country's largest private health insurers, trading as
-  Bupa HI Pty Ltd (ABN 81 000 057 590). It writes private health insurance —
-  hospital and ancillary "extras" cover, overseas visitor and overseas student
-  health cover, and corporate health plans — and, unusually for a carrier, also
-  owns the provision that consumes those benefits through Bupa Dental, Bupa
-  Optical, Bupa Medical Visa Services and Bupa Aged Care. Its lines of business
-  are health and care rather than property and casualty or life, so the ACORD
-  data standards that shape most of the insurance sector are entirely absent
-  from its published surface; no reference to ACORD, AL3, ACORD XML or NGDS
-  appears anywhere on its public web estate. Australia gives it no forcing
-  function either: the Consumer Data Right was designated to extend to general
-  insurance and then deferred, and a first-hand query of the CDR participant
-  register at api.cdr.gov.au on 2026-07-25 returned 203 data-holder brands
-  drawn only from banking and energy, with no insurance sector and no Bupa
-  brand present. Bupa Australia's API posture is accordingly partner-gated. It
-  does run a genuine first-party developer portal at portal.api.bupa.com.au —
-  an Azure API Management managed portal whose meta author tag names Bupa HI
-  Pty Ltd — but the portal returns HTTP 200 while listing nothing: its /apis
-  and /products routes render empty "APIs: List" and "Products: List" headings
-  to anonymous visitors, its config.json points at an internal-only management
-  host, and its Get Started page routes every onboarding step through the "Bupa
-  Integration Fabric Team" before any API specification is released. No public
-  OpenAPI or Swagger definition, Postman collection, GraphQL schema, gRPC
-  service or webhook catalog could be confirmed, and none of the four insurance
-  verbs — quote, bind, issue or FNOL — is exposed to unauthenticated
-  developers. The real integration surface for Bupa Australia's counterparties
-  is not an API at all: ancillary providers claim through HICAPS and HealthPoint
-  terminals, hospital providers check patient eligibility and lodge claims
-  through ECLIPSE, the national Services Australia claiming channel reached via
-  Civica's ECF web front-end, and access to the Bupa Partner Portal at
-  partner.bupa.com.au is requested by downloading and returning a PDF form.
+
+description: 'Bupa Australia is the Australian market unit of the UK-headquartered Bupa group and one of the country''s largest private health
+  insurers, trading as Bupa HI Pty Ltd (ABN 81 000 057 590). It writes private health insurance — hospital and ancillary "extras" cover, overseas
+  visitor and overseas student health cover, and corporate health plans — and, unusually for a carrier, also owns the provision that consumes
+  those benefits through Bupa Dental, Bupa Optical, Bupa Medical Visa Services and Bupa Aged Care. Its lines of business are health and care rather
+  than property and casualty or life, so the ACORD data standards that shape most of the insurance sector are entirely absent from its published
+  surface; no reference to ACORD, AL3, ACORD XML or NGDS appears anywhere on its public web estate. Australia gives it no forcing function either:
+  the Consumer Data Right was designated to extend to general insurance and then deferred, and a first-hand query of the CDR participant register
+  at api.cdr.gov.au on 2026-07-25 returned 203 data-holder brands drawn only from banking and energy, with no insurance sector and no Bupa brand
+  present. Bupa Australia''s API posture is accordingly partner-gated. It does run a genuine first-party developer portal at portal.api.bupa.com.au
+  — an Azure API Management managed portal whose meta author tag names Bupa HI Pty Ltd — but the portal returns HTTP 200 while listing nothing:
+  its /apis and /products routes render empty "APIs: List" and "Products: List" headings to anonymous visitors, its config.json points at an internal-only
+  management host, and its Get Started page routes every onboarding step through the "Bupa Integration Fabric Team" before any API specification
+  is released. No public OpenAPI or Swagger definition, Postman collection, GraphQL schema, gRPC service or webhook catalog could be confirmed,
+  and none of the four insurance verbs — quote, bind, issue or FNOL — is exposed to unauthenticated developers. The real integration surface for
+  Bupa Australia''s counterparties is not an API at all: ancillary providers claim through HICAPS and HealthPoint terminals, hospital providers
+  check patient eligibility and lodge claims through ECLIPSE, the national Services Australia claiming channel reached via Civica''s ECF web front-end,
+  and access to the Bupa Partner Portal at partner.bupa.com.au is requested by downloading and returning a PDF form.'
+
 deliveryModel:
   model: saas
   open_source: false
@@ -46,6 +35,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -63,7 +53,9 @@ accessModel:
   - security
   generated: '2026-09-02'
   method: derived
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+
+image: https://www.bupa.com.au/-/media/dotcom/images/bupa-logos/bupa-apple-touch-icon-precomposed-180x180.png
+
 tags:
 - Insurance
 - Australia
@@ -74,11 +66,24 @@ tags:
 - Claims
 - Policy Administration
 - Employee Benefits
+
 created: '2026-07-25'
-modified: '2026-07-25'
+
+modified: '2026-10-21'
+
 specificationVersion: '0.23'
-apis: []
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
+- type: Hosts
+  url: hosts/bupa-australia-hosts.yml
+- type: IntegrationEdges
+  url: integrations/bupa-australia-integration-edges.yml
+- type: Vendors
+  url: vendors/bupa-australia-vendors.yml
 - type: Website
   url: https://www.bupa.com.au/
 - type: About
@@ -109,6 +114,12 @@ common:
   url: https://www.bupa.com.au/terms-and-conditions
 - type: PrivacyPolicy
   url: https://www.bupa.com.au/privacy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bupaaustralia
+- type: YouTube
+  url: https://www.youtube.com/BupaAustralia
+- type: Facebook
+  url: https://www.facebook.com/BupaAustralia
 - type: Authentication
   name: Bupa Australia authentication profile
   url: authentication/bupa-australia-authentication.yml
@@ -133,8 +144,48 @@ common:
 - type: LLMsTxt
   name: Bupa Australia llms.txt
   url: llms/bupa-australia-llms.txt
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
+apis:
+- name: Bupa Australia Developer Portal APIs
+  description: Bupa HI Pty Ltd's Azure API Management developer portal ("Discover Bupa APIs"). The portal lists no APIs or products to anonymous
+    visitors; its Get Started page says partners must contact the Bupa Integration Fabric Team to get access to the API specifications, integration
+    guides and environments. No public base URL or machine-readable contract is published.
+  humanURL: https://portal.api.bupa.com.au/
+  tags:
+  - Partner Gated
+  - Health Insurance
+  properties:
+  - type: Documentation
+    url: https://portal.api.bupa.com.au/get-started
+  - type: Portal
+    url: https://portal.api.bupa.com.au/apis
+  aid: bupa-australia:bupa-australia-developer-portal-apis
+
 x-tags-removed:
 - Partner Gated
+
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: Identity pass 2026-10-21 re-fetched every common[] pointer with a browser UA; all answered 200 with on-topic titles (a 404 control on
+    www.bupa.com.au confirmed no catch-all). /privacy redirects to the Privacy and Security Trust Centre; partner.bupa.com.au redirects to an
+    Azure AD B2C sign-in. Social pointers taken from homepage footer.
+  evidence:
+  - url: https://www.bupa.com.au/
+    status: 200
+  - url: https://portal.api.bupa.com.au/
+    status: 200
+  - url: https://portal.api.bupa.com.au/get-started
+    status: 200
+  - url: https://portal.api.bupa.com.au/apis
+    status: 200
+  - url: https://www.bupa.com.au/privacy
+    status: 200
+  - url: https://www.bupa.com.au/does-not-exist-xyz
+    status: 404
+x-enrichment:
+  date: '2026-10-21'
+  status: enriched
+  artifacts_added: 10
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic
