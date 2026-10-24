@@ -152,6 +152,8 @@ apis:
     guides and environments. No public base URL or machine-readable contract is published.
   humanURL: https://portal.api.bupa.com.au/
   tags:
+  - Health Insurance
+  tags_raw:
   - Partner Gated
   - Health Insurance
   properties:
