@@ -1,4 +1,4 @@
-# Bupa Australia (bupa-australia)
+# Bupa Australia
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,62 +64,111 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Bupa Australia is the Australian market unit of the UK-headquartered Bupa group and one of the country's largest private health insurers, trading as Bupa HI Pty Ltd (ABN 81 000 057 590). It writes hospital and ancillary "extras" cover, overseas visitor and overseas student health cover, and corporate health plans — and, unusually for a carrier, also owns the provision that consumes those benefits through Bupa Dental, Bupa Optical, Bupa Medical Visa Services and Bupa Aged Care.
+Bupa Australia is the Australian market unit of the UK-headquartered Bupa group and one of the country's largest private health insurers, trading as Bupa HI Pty Ltd (ABN 81 000 057 590). It writes private health insurance — hospital and ancillary "extras" cover, overseas visitor and overseas student health cover, and corporate health plans — and, unusually for a carrier, also owns the provision that consumes those benefits through Bupa Dental, Bupa Optical, Bupa Medical Visa Services and Bupa Aged Care. Its lines of business are health and care rather than property and casualty or life, so the ACORD data standards that shape most of the insurance sector are entirely absent from its published surface; no reference to ACORD, AL3, ACORD XML or NGDS appears anywhere on its public web estate. Australia gives it no forcing function either: the Consumer Data Right was designated to extend to general insurance and then deferred, and a first-hand query of the CDR participant register at api.cdr.gov.au on 2026-07-25 returned 203 data-holder brands drawn only from banking and energy, with no insurance sector and no Bupa brand present. Bupa Australia's API posture is accordingly partner-gated. It does run a genuine first-party developer portal at portal.api.bupa.com.au — an Azure API Management managed portal whose meta author tag names Bupa HI Pty Ltd — but the portal returns HTTP 200 while listing nothing: its /apis and /products routes render empty "APIs: List" and "Products: List" headings to anonymous visitors, its config.json points at an internal-only management host, and its Get Started page routes every onboarding step through the "Bupa Integration Fabric Team" before any API specification is released. No public OpenAPI or Swagger definition, Postman collection, GraphQL schema, gRPC service or webhook catalog could be confirmed, and none of the four insurance verbs — quote, bind, issue or FNOL — is exposed to unauthenticated developers. The real integration surface for Bupa Australia's counterparties is not an API at all: ancillary providers claim through HICAPS and HealthPoint terminals, hospital providers check patient eligibility and lodge claims through ECLIPSE, the national Services Australia claiming channel reached via Civica's ECF web front-end, and access to the Bupa Partner Portal at partner.bupa.com.au is requested by downloading and returning a PDF form.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/bupa-australia/refs/heads/main/apis.yml)
+**Areas:** Insurance · Australia · Health Insurance · Private Health Insurance · Carrier · Healthcare · Claims · Policy Administration · Employee Benefits
 
-## Tags
+## Bupa Australia on APIs.io
 
-- Insurance
-- Australia
-- Health Insurance
-- Private Health Insurance
-- Carrier
-- Healthcare
-- Claims
-- Policy Administration
-- Employee Benefits
-- Partner Gated
+Everything profiled for Bupa Australia is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bupa-australia/](https://apis.io/providers/bupa-australia/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+- [Bupa Australia Developer Portal APIs](https://apis.io/apis/bupa-australia/bupa-australia-developer-portal-apis/) — Bupa HI Pty Ltd's Azure API Management developer portal ("Discover Bupa APIs"). The portal lists no APIs or products to anonymous visitors; its Get Started…
 
-## APIs
+### Published properties
 
-None listed.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Bupa Australia publishes no public, self-serve API. It does run a **real first-party developer portal** — and the portal is empty.
+#### Security (2)
 
-- **[portal.api.bupa.com.au](https://portal.api.bupa.com.au/) — live (HTTP 200), first-party, and gated.** It is an Azure API Management managed portal whose meta author tag reads *"Bupa HI Pty Ltd ABN 81 000 057 590"*, so it belongs to the Australian entity rather than the UK group. But `/apis` and `/products` both return HTTP 200 and render bare "APIs: List" and "Products: List" headings with **no catalog** for anonymous visitors, and `config.json` points the portal at `https://management.api.internal.bupa.com.au/...` (APIM service `banzprodapim01`), a host that does not resolve publicly. The [Get Started](https://portal.api.bupa.com.au/get-started) page routes every step through a human team: *"Contact the Bupa Integration Fabric Team with your interest to get access to our API specifications."*
-- **`api.bupa.com.au` — 502 to everyone.** The custom gateway host resolves behind Imperva but returns HTTP 502 to anonymous callers on every path probed, including `/openapi.json`, `/swagger.json`, `/api-docs`, `/graphql` and `/.well-known/openid-configuration`.
-- **Nothing on the marketing estate.** `developer.`, `developers.`, `docs.`, `apis.` and `sandbox.bupa.com.au` do not resolve. `/developers`, `/developer`, `/api`, `/apis`, `/partners`, `/partner` and `/integrations` all return 404. The three public sitemaps hold **810 URLs and not one developer, API or SDK page**.
+Authentication, trust centre, and vulnerability disclosure.
 
-### What Bupa Australia's counterparties actually integrate with
+- [Bupa Australia Authentication](https://apis.io/security/bupa-australia/bupa-australia-authentication/)
+- [Bupa Australia Domain Security](https://apis.io/security/bupa-australia/bupa-australia-domain-security/)
 
-The honest finding for this record is that the real integration surface is not an API at all:
+#### OAuth scopes (1)
 
-- **Ancillary providers claim through HICAPS and HealthPoint terminals.** The [for-providers](https://www.bupa.com.au/for-providers) page states Bupa "has engaged HICAPS and HealthPoint to activate their adjusted charge processing feature".
-- **Hospital providers use ECLIPSE.** Patient eligibility checking and hospital claiming run over the national Services Australia channel, reached from Bupa's own [hospital providers](https://www.bupa.com.au/for-providers/hospital) page at `https://eclipse.civica.com.au/ECFWeb/login` — Civica's Electronic Claim Form web client. Registration is a **PDF form**.
-- **The Bupa Partner Portal is a login wall reached by paper.** [partner.bupa.com.au](https://partner.bupa.com.au/) is a Microsoft Dynamics 365 Power Pages portal that 302s to Azure AD B2C, and access is requested by downloading and returning "Bupa Partner Portal Access Form.pdf".
+The permissions the API asks for.
 
-## Sector signals
+- [Bupa Australia Scopes](https://apis.io/scopes/bupa-australia/bupa-australia-scopes/)
 
-- **ACORD posture:** *no ACORD reference found.* No mention of ACORD, AL3, ACORD XML, NGDS or ACORD certification appears on `www.bupa.com.au` or on any page of the developer portal. Consistent with the line of business — private health insurance and healthcare provision, not P&C or life — and with the market, which has no IVANS-style agency-download plumbing. The standards that actually carry Bupa Australia's transactions are domestic health-claiming ones (ECLIPSE, HICAPS, HealthPoint), none of which is ACORD and none of which Bupa publishes.
-- **Quote / bind / issue / FNOL:** none publicly exposed. Quoting is the consumer web funnel and gated corporate channels; claiming runs over ECLIPSE, terminals, the myBupa app, and in several paths still PDF forms.
-- **Auth model:** OAuth2 authorization code via **Azure AD B2C** (`partnerlogin.bupa.com.au`, tenant `52bddae3-…`, policy `B2C_1A_PROD_01_SIGNUP_SIGNIN`) guards the partner portal, and OAuth2 via **Microsoft Entra ID** (tenant `fee9c112-…`, region scope OC) plus a B2C path guards developer-portal sign-in. Both discovery documents were fetched anonymously at HTTP 200. Azure APIM subscription keys are implied by the portal copy but are not documented publicly.
-- **CDR:** Australia designated the Consumer Data Right for general insurance and then deferred it. A direct query of the [CDR participant register](https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary) (HTTP 200) returned **203 data-holder brands, banking and energy only — no insurance sector and no Bupa brand.** The seam that made Australian banking legible stops before insurance.
-- **Webhooks / events / Postman / GraphQL / gRPC / public source:** none found. No GitHub organization exists under `bupa`, `bupa-australia`, `bupaanz` or `bupa-anz`.
-- **OpenAPI harvested:** 0 specifications. No `openapi/` directory is included, because nothing real was available to save.
+#### Plans and pricing (1)
 
-Full probe log, HTTP statuses and provenance are in [review.yml](review.yml).
+Published plans, tiers and prices.
 
-## Links
+- [Bupa Australia Plans Pricing](https://apis.io/plans/bupa-australia/bupa-australia-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Bupa Australia Rate Limits](https://apis.io/rate-limits/bupa-australia/bupa-australia-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.bupa.com.au/)
-- [About Bupa Australia](https://www.bupa.com.au/about-us)
-- [Bupa Developer Portal](https://portal.api.bupa.com.au/)
-- [Get Started](https://portal.api.bupa.com.au/get-started)
-- [Bupa Partner Portal](https://partner.bupa.com.au/)
-- [For Providers](https://www.bupa.com.au/for-providers)
+- [Documentation](https://portal.api.bupa.com.au/get-started)
+- [Getting started](https://portal.api.bupa.com.au/get-started)
+- [API reference](https://portal.api.bupa.com.au/apis)
+- [Pricing](https://www.bupa.com.au/health-insurance/quote)
+- [Sign up](https://portal.api.bupa.com.au/signin)
+- [Support](https://www.bupa.com.au/contact-us)
+- [Blog](https://www.bupa.com.au/healthcare-guide)
+- [Terms of service](https://www.bupa.com.au/terms-and-conditions)
+- [Privacy policy](https://www.bupa.com.au/privacy)
+
+## API Evangelist rating
+
+**Kin Score 23.2** — emerging · rubric 0.24.0 · scored 2026-10-21
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 50.0 |
+| Access clarity | 13.2 |
+
+**Agent readiness 8.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 29.8** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bupa-australia/](https://apis.io/providers/bupa-australia/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bupa Australia: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bupa-australia/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
